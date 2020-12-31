@@ -1,23 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { longDateFormat } from '../dateFormat.js'
-import { getPlatformImages } from '../getPlatformImages'
+import { longDateFormat } from '../util'
+import { getPlatformImages } from '../util'
+import { smallImage } from '../util'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 import { useDispatch } from 'react-redux'
 import { loadGameDetails } from '../actions/detailsAction'
-import { Link, useHistory } from 'react-router-dom'
-import { smallImage } from '../util'
+import { Link } from 'react-router-dom'
 
 const Game = ({ name, released, image, id, platforms }) => {
-  // Toggle scroll
-  const history = useHistory()
-  if (history.location.pathname === '/') {
-    document.body.style.overflow = 'auto'
-  } else if (history.location.pathname === `/game/${id}`) {
-    document.body.style.overflow = 'hidden'
-  }
-
   const dispatch = useDispatch()
+
   const gameDetailsHandler = () => {
     dispatch(loadGameDetails(id))
   }
@@ -27,11 +20,10 @@ const Game = ({ name, released, image, id, platforms }) => {
   const [timerHours, setTimerHours] = useState('00')
   const [timerMinutes, setTimerMinutes] = useState('00')
   const [timerSeconds, setTimerSeconds] = useState('00')
-  const [countdown, setCountdown] = useState(true)
+  const [timerOn, setTimerOn] = useState(false)
 
   let interval = useRef()
 
-  // Create this with redux https://stackoverflow.com/questions/48911033/creating-a-countdown-timer-with-redux
   const startTimer = () => {
     const countDownDate = new Date(released).getTime()
 
@@ -54,7 +46,7 @@ const Game = ({ name, released, image, id, platforms }) => {
         setTimerHours(hours)
         setTimerMinutes(minutes)
         setTimerSeconds(seconds)
-        setCountdown(false)
+        setTimerOn(true)
       }
     }, 1000)
   }
@@ -68,7 +60,7 @@ const Game = ({ name, released, image, id, platforms }) => {
       <Link to={`/game/${id}`}>
         <img className="game-image" src={smallImage(image, 1280)} alt={name} />
         <GameInfo>
-          <Platform>
+          <Platforms>
             {platforms.map((platform) => (
               <img
                 src={getPlatformImages(platform.platform.name)}
@@ -76,10 +68,10 @@ const Game = ({ name, released, image, id, platforms }) => {
                 key={platform.platform.id}
               />
             ))}
-          </Platform>
+          </Platforms>
           <h3 className="game-title">{name}</h3>
           <p>
-            {!countdown
+            {timerOn
               ? `Releasing In: ${timerDays}d ${timerHours}h ${timerMinutes}m ${timerSeconds}s`
               : longDateFormat(released)}
           </p>
@@ -118,7 +110,7 @@ const GameInfo = styled(motion.div)`
   }
 `
 
-const Platform = styled(motion.div)`
+const Platforms = styled(motion.div)`
   img {
     display: inline-block;
     margin-right: 0.5rem;

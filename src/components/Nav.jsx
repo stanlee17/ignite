@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
-import { motion } from 'framer-motion'
-import logo from '../img/logo.svg'
 import { fetchSearch } from '../actions/gamesAction'
 import { useDispatch } from 'react-redux'
+import styled from 'styled-components'
+import { motion } from 'framer-motion'
 import { fadeIn } from '../animations'
+import logo from '../img/logo.svg'
 
 const Nav = () => {
   const dispatch = useDispatch()
@@ -47,7 +47,8 @@ const StyledNav = styled(motion.nav)`
   padding: 2rem 5rem;
   text-align: center;
   justify-content: space-between;
-  background: #fff;
+  background: #ffffff;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
   width: 100%;

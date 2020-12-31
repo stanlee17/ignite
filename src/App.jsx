@@ -1,18 +1,23 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Home from './pages/Home'
 import GameDetails from './components/GameDetails'
 import Nav from './components/Nav'
-import GlobalStyles from './components/GlobalStyle'
-import { Route } from 'react-router-dom'
+import GlobalStyles from './styles/GlobalStyle'
+import { Route, Switch } from 'react-router-dom'
 
 const App = () => {
   return (
     <div className="App">
       <GlobalStyles />
       <Nav />
-      <Route path={['/game/:id', '/']}>
-        <Home />
-      </Route>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/game/:id">
+          <GameDetails />
+        </Route>
+      </Switch>
     </div>
   )
 }

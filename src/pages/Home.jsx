@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react'
 import GameDetails from '../components/GameDetails'
+import Game from '../components/Game'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadGames } from '../actions/gamesAction'
-import Game from '../components/Game'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 import { fadeIn } from '../animations'
-import { useParams } from 'react-router-dom'
 
 const Home = () => {
-  // Get the current location
   let { id } = useParams()
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -37,7 +35,6 @@ const Home = () => {
                 image={game.background_image}
                 key={game.id}
                 platforms={game.parent_platforms}
-                genres={game.genres}
               />
             ))}
           </Games>
@@ -55,7 +52,6 @@ const Home = () => {
             image={game.background_image}
             key={game.id}
             platforms={game.parent_platforms}
-            genres={game.genres}
           />
         ))}
       </Games>
@@ -69,7 +65,6 @@ const Home = () => {
             image={game.background_image}
             key={game.id}
             platforms={game.parent_platforms}
-            genres={game.genres}
           />
         ))}
       </Games>
@@ -83,7 +78,6 @@ const Home = () => {
             image={game.background_image}
             key={game.id}
             platforms={game.parent_platforms}
-            genres={game.genres}
           />
         ))}
       </Games>
@@ -99,6 +93,7 @@ const GameList = styled(motion.div)`
     color: #252525;
   }
 `
+
 const Games = styled(motion.div)`
   min-height: 80vh;
   display: grid;

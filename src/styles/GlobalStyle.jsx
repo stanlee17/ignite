@@ -24,12 +24,16 @@ const GlobalStyles = createGlobalStyle`
     body {
         font-family: 'Montserrat', sans-serif;
         width: 100%;
-        background: #f8f8f8;
+        background: #fff;
+    }
+
+    h1 {
+        font-size: 3rem;
+        color: #333;
     }
 
     h2 {
         font-size: 3rem;
-        font-family: 'Montserrat', sans-serif;
         color: #333;
     }
 
